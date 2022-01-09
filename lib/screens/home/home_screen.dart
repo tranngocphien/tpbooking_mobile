@@ -1,33 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tpbooking/screens/history_booking/history_booking_screen.dart';
 import 'package:tpbooking/screens/home/home_controller.dart';
 import 'package:tpbooking/screens/list_hotel/list_hotel.dart';
+import 'package:tpbooking/screens/login/login.dart';
+import 'package:tpbooking/screens/login/login_controller.dart';
 
 import 'components/hotel_list_item.dart';
 
 class HomePageScreen extends StatelessWidget {
-  HomePageScreen({Key? key}) : super(key: key);
-
-  var homeController = Get.put(HomeController());
+  const HomePageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var homeController = Get.put(HomeController());
+    LoginController loginController = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: const Color(0xFFF6F7FF),
-        title: Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
+        iconTheme: const IconThemeData(color: Colors.green),
+
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
@@ -40,7 +35,7 @@ class HomePageScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w600,
-                  color: Colors.green),
+                  color: Color(0xFF18b57e)),
             ),
             Text(
               "Chọn khách sạn đi nào",
@@ -118,6 +113,41 @@ class HomePageScreen extends StatelessWidget {
             // }),
           ],
         ),
+      ),
+      drawer: Drawer(
+        child: Obx(() => ListView(
+          children: [
+            DrawerHeader(
+                decoration: BoxDecoration(
+
+                ),
+                child: Image.asset('assets/images/TPBOOKING.png')),
+            ListTile(
+              title: const Text("Lịch sử đặt phòng"),
+              onTap: (){
+                if(loginController.isLogin.value){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const BookingHistrory()),);
+                }
+                else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                }
+
+              },
+            ),
+            loginController.isLogin.value ? Container(): ListTile(
+                title: const Text("Đăng nhập"),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
+                }
+            ),
+            ListTile(
+              title: const Text("Đăng xuất"),
+              onTap: (){
+
+              },
+            )
+          ],
+        )),
       ),
     );
   }

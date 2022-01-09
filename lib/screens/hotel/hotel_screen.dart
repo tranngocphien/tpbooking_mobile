@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:tpbooking/models/hotel_entity.dart';
 import 'package:tpbooking/models/room_entity.dart';
+import 'package:tpbooking/screens/room/room_screen.dart';
 
 class HotelDetail extends StatelessWidget {
   final Hotel hotel;
@@ -30,7 +31,7 @@ class HotelDetail extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600
                       )),
-                    SizedBox(height: 8,),
+                    const SizedBox(height: 8,),
                     Column(
                       children: hotel.rooms.map((e) => Room(room: e)).toList(),
                     )
@@ -56,57 +57,65 @@ class Room extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      padding: EdgeInsets.only(top: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 140,
-            height: 160,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                        "https://${room.imgs[0]}"))),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RoomScreen(roomEntity: room)),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.only(top: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 140,
+              height: 160,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          "https://${room.imgs[0]}"))),
 
-          ),
-          SizedBox(width: 4,),
-          Container(
-            width: size.width - 140 - 16- 16 - 4,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-                Text(room.name,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: room.benefit.map((e) => Text(e)).toList(),
-                ),
-                Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${room.adults} người lớn"),
-                        Text("${room.children} trẻ nhỏ")
-                      ],
-                    ),
-                    Text(room.cost.toString())
-                  ],
-                )
-
-              ],
             ),
-          )
-        ],
+            const SizedBox(width: 4,),
+            SizedBox(
+              width: size.width - 140 - 16- 16 - 4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Text(room.name,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: room.benefit.map((e) => Text(e)).toList(),
+                  ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${room.adults} người lớn"),
+                          Text("${room.children} trẻ nhỏ")
+                        ],
+                      ),
+                      Text(room.cost.toString())
+                    ],
+                  )
+
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -134,7 +143,7 @@ class Score extends StatelessWidget {
               fontWeight: FontWeight.w600
             ),
           ),
-          SizedBox(height: 8,),
+          const SizedBox(height: 8,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,11 +174,11 @@ class Score extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 100,
                         child: Text("Độ sạch sẽ"),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: Text(hotel.scoreClean.toString()),
                       )
@@ -177,11 +186,11 @@ class Score extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 100,
                         child: Text("Vị trí"),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: Text(hotel.scoreClean.toString()),
                       )
@@ -189,11 +198,11 @@ class Score extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 100,
                         child: Text("Dịch vụ"),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: Text(hotel.scoreClean.toString()),
                       )
@@ -201,11 +210,11 @@ class Score extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 100,
                         child: Text("Tiện nghi"),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: Text(hotel.scoreClean.toString()),
                       )
@@ -213,11 +222,11 @@ class Score extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 100,
                         child: Text("Đáng giá tiền"),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: Text(hotel.scoreClean.toString()),
                       )
@@ -247,16 +256,16 @@ class BaseInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(hotel.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20
             ),
           ),
-          SizedBox(height: 8,),
+          const SizedBox(height: 8,),
           Row(
             children: [
               Expanded(
@@ -269,7 +278,7 @@ class BaseInformation extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(hotel.score.toString()),
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: Colors.yellow,
                       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tpbooking/models/hotel_entity.dart';
-import 'package:tpbooking/services/api_services.dart';
+import 'package:tpbooking/screens/hotel/hotel_screen.dart';
+import 'package:tpbooking/services/hotel_service.dart';
 
 class ListHotelScreen extends StatefulWidget {
   final String searchKey;
@@ -73,68 +74,76 @@ class HotelTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Card(
-      child: SizedBox(
-        width: double.infinity,
-        height: 160,
-        child: Row(
-          children: [
-            Container(
-              width: 140,
-              height: 160,
-              decoration:  BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          "https://${hotel.imgs[0]}"))),
-            ),
-            Container(
-              width: size.width - 160 - 16,
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        hotel.name,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(height: 4,),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 16,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(hotel.city)
-                        ],
-                      ),
-                    ],
-                  ),
-
-
-                  Row(
-                    children: [
-                      Text(
-                        hotel.score.toString(),
-                        style: TextStyle(
-                            color: Colors.orangeAccent,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Icon(Icons.star, color: Colors.yellow,)
-                    ],
-                  ),
-                ],
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HotelDetail(hotel: hotel)),
+        );
+      },
+      child: Card(
+        child: SizedBox(
+          width: double.infinity,
+          height: 160,
+          child: Row(
+            children: [
+              Container(
+                width: 140,
+                height: 160,
+                decoration:  BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            "https://${hotel.imgs[0]}"))),
               ),
-            )
-          ],
+              Container(
+                width: size.width - 160 - 16,
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          hotel.name,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 4,),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              size: 16,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(hotel.city)
+                          ],
+                        ),
+                      ],
+                    ),
+
+
+                    Row(
+                      children: [
+                        Text(
+                          hotel.score.toString(),
+                          style: const TextStyle(
+                              color: Colors.orangeAccent,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Icon(Icons.star, color: Colors.yellow,)
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

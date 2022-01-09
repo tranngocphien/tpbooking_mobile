@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tpbooking/screens/home/home_screen.dart';
-import 'package:tpbooking/screens/hotel/hotel_screen.dart';
-import 'package:tpbooking/screens/list_hotel/list_hotel.dart';
+import 'package:get/get.dart';
+import 'package:tpbooking/screens/login/login_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginController());
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",

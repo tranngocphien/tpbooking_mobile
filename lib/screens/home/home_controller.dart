@@ -1,33 +1,24 @@
-
 import 'package:get/get.dart';
 import 'package:tpbooking/models/hotel_entity.dart';
-import 'package:tpbooking/services/api_services.dart';
-import 'package:tpbooking/services/dio/dio_service.dart';
+import 'package:tpbooking/services/hotel_service.dart';
 
 class HomeController extends GetxController{
-  var dio = DioService.instance.get();
   var isLoading = true.obs;
-
+  final _hotelService = HotelServices.instance;
   var listHotel = List<Hotel>.empty(growable: true).obs;
 
   @override
-  void onInit() {
+  void onInit() async{
     // TODO: implement onInit
+    isLoading.value = true;
+    await getHotels();
+    isLoading.value = false;
     super.onInit();
-    getHotels();
   }
 
-  void getHotels() async{
-    try {
-      var hotels = await HotelServices.fetchHotels();
-      if( hotels!= null){
-        listHotel.addAll(hotels);
-        print("length: ${listHotel.length}");
-      }
-    }
-    finally {
-      isLoading(false);
-
-    }
+  Future<void> getHotels() async{
+      var hotels = await _hotelService.fetchHotels();
+      listHotel.clear();
+      listHotel.addAll(hotels);
   }
 }
