@@ -1,4 +1,5 @@
 import 'package:tpbooking/models/booking_history_entity.dart';
+import 'package:tpbooking/models/comment_entity.dart';
 import 'package:tpbooking/models/hotel_entity.dart';
 import 'package:tpbooking/models/user_entity.dart';
 import 'package:tpbooking/routes/api_routes.dart';
@@ -63,6 +64,8 @@ class HotelServices {
 
   }
 
+
+
   Future<List<BookingHistoryEntity>> getListBooking(int user_id) async{
     var data = {
       "user_id": user_id
@@ -77,6 +80,21 @@ class HotelServices {
 
   }
 
+  Future<bool> cancelBooking(int reservationID) async{
+    var data = {
+      "reservation_id": reservationID
+    };
+    var response = await dio.post("${APIConfig.baseUrl}booking/cancel/room", data: data);
+    if(response.statusCode == 200){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+
+  }
+
   Future<Hotel> getHotelById(String id) async{
     var response = await dio.get("${APIConfig.baseUrl}hotel/$id");
     if(response.statusCode == 200){
@@ -84,6 +102,36 @@ class HotelServices {
     }
     else {
       throw "Can get hotel by id";
+    }
+
+  }
+
+
+  Future<List<CommentEntity>> getCommentByHotelId(String hotelId) async {
+    var response = await dio.get("${APIConfig.baseUrl}hotel/comment/$hotelId");
+    if(response.statusCode == 200){
+      print(response);
+      return response.data["data"].map<CommentEntity>((json) => CommentEntity.fromJson(json)).toList();
+    }
+    else {
+      throw "Can get comment hotel by id";
+    }
+  }
+
+  Future<CommentEntity> createComment(int userId, String hotelId,String content) async {
+    var data = {
+      "user_id": userId,
+      "hotel_id": hotelId,
+      "title": "Tuyệt vời",
+      "content": content
+    };
+    var response = await dio.post("${APIConfig.baseUrl}hotel/comment/add", data: data);
+    if(response.statusCode == 200){
+      print(response.data);
+      return CommentEntity.fromJson(response.data['data']);
+    }
+    else {
+      throw "Can not comment";
     }
 
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tpbooking/models/room_entity.dart';
 import 'package:tpbooking/screens/booking/booking_controller.dart';
+import 'package:tpbooking/screens/history_booking/history_booking_controller.dart';
 import 'package:tpbooking/screens/home/home_screen.dart';
 import 'package:tpbooking/screens/login/login.dart';
 import 'package:tpbooking/screens/login/login_controller.dart';
@@ -133,9 +134,10 @@ class _BookingScreenState extends State<BookingScreen> {
             const Divider(thickness: 1,),
             const SizedBox(height: 16,),
             InkWell(
-              onTap: (){
+              onTap: () async{
                 LoginController loginController = Get.find();
                 if(loginController.isLogin.value){
+                  HistoryBookingController historyBookingController = Get.find();
                   bookingController.bookRoom(widget.roomEntity.id, loginController.user.value!.id);
                   showDialog<void>(
                     context: context,

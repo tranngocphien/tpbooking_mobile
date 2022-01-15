@@ -143,6 +143,9 @@ class HomePageScreen extends StatelessWidget {
             ListTile(
               title: const Text("Đăng xuất"),
               onTap: (){
+                LoginController loginController = Get.find();
+                loginController.user.value = null;
+                loginController.isLogin.value = false;
 
               },
             )

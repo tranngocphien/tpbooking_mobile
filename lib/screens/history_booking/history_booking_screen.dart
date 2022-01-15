@@ -28,7 +28,7 @@ class BookingHistrory extends StatelessWidget {
               color: Color(0xFF18b57e),
             )),
       ),
-      body: Obx(() => ListView(
+      body: Obx(() => historyBookingController.isLoading.value ? const Center(child: CircularProgressIndicator(),) : ListView(
           children: List.generate(
               historyBookingController.listBooking.length,
               (index) => Container(
@@ -83,10 +83,32 @@ class BookingHistrory extends StatelessWidget {
                             ),
                             historyBookingController
                                         .listBooking[index].status ==
-                                    2
+                                    0
                                 ? Container()
                                 : InkWell(
-                                    onTap: () {},
+                                    onTap: (){
+                                      showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) => AlertDialog(
+                                          title: const Text('Xóa'),
+                                          content: Text('Bạn có chắc chắn muốn hủy phòng ${historyBookingController
+                                              .listRooms[index].name}'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await historyBookingController.cancelBooking(index);
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
                                     child: Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: const BoxDecoration(

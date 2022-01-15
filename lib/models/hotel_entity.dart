@@ -3,6 +3,7 @@ import 'package:tpbooking/models/room_entity.dart';
 import 'package:tpbooking/models/service_entity.dart';
 
 class Hotel {
+  String id;
   String name;
   List<String> imgs;
   String city;
@@ -20,7 +21,7 @@ class Hotel {
   List<ServiceEntity> services;
 
   Hotel(
-      {required this.name,
+      {required this.id, required this.name,
       required this.imgs,
       required this.city,
       required this.address,
@@ -38,6 +39,7 @@ class Hotel {
 
   factory Hotel.fromJson(Map<String, dynamic> json) {
     return Hotel(
+      id: json['id'] ?? '',
       name: json["name"],
       imgs: List<String>.from(json["imgs"].map((x) => x)),
       city: json["city"],

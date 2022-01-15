@@ -6,7 +6,7 @@ import 'package:tpbooking/models/room_entity.dart';
 import 'package:tpbooking/services/hotel_service.dart';
 
 class HistoryBookingController extends GetxController {
-  final List<BookingHistoryEntity> listBooking =
+  final listBooking =
       List<BookingHistoryEntity>.empty().obs;
   final List<Hotel> listHotels = List<Hotel>.empty().obs;
   final List<RoomEntity> listRooms = List<RoomEntity>.empty().obs;
@@ -27,6 +27,7 @@ class HistoryBookingController extends GetxController {
     final userId = prefs.getInt('userId') ?? 0;
     listBooking.clear();
     listBooking.addAll(await _hotelService.getListBooking(userId));
+    print("History booking length: ${listBooking.value.length}");
     listHotels.clear();
 
     for (var element in listBooking) {
@@ -39,6 +40,14 @@ class HistoryBookingController extends GetxController {
         }
       }
     }
+  }
+
+  Future<void> cancelBooking(int index) async{
+    isLoading.value = true;
+    _hotelService.cancelBooking(listBooking.value[index].id);
+    listBooking.value.removeAt(index);
+    isLoading.value = false;
+
   }
 
 }
