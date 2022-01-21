@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:tpbooking/models/room_entity.dart';
 import 'package:tpbooking/screens/booking/booking_screen.dart';
+import 'package:tpbooking/utils/utils.dart';
 
 class RoomScreen extends StatelessWidget {
   final RoomEntity roomEntity;
@@ -10,6 +11,23 @@ class RoomScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "THÔNG TIN PHÒNG",
+          style: TextStyle(color: Color(0xFF18b57e)),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF18b57e),
+            )),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -31,7 +49,7 @@ class RoomScreen extends StatelessWidget {
                 ),
                 Center(
                     child: Text(
-                      '${roomEntity.cost} đ',
+                      '${MoneyFormat.convertDoubleToString(roomEntity.cost * 1.0)}',
                       style: const TextStyle(
                           color: Color(0xFFde1616),
                           fontSize: 28,

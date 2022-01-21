@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tpbooking/screens/history_booking/history_booking_controller.dart';
 import 'package:tpbooking/screens/history_booking/history_booking_screen.dart';
 import 'package:tpbooking/screens/home/home_controller.dart';
 import 'package:tpbooking/screens/list_hotel/list_hotel.dart';
@@ -140,15 +141,17 @@ class HomePageScreen extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
                 }
             ),
-            ListTile(
+            loginController.isLogin.value ? ListTile(
               title: const Text("Đăng xuất"),
               onTap: (){
                 LoginController loginController = Get.find();
                 loginController.user.value = null;
                 loginController.isLogin.value = false;
+                HistoryBookingController historyBooking = Get.find();
+                historyBooking.listBooking.clear();
 
               },
-            )
+            ): Container()
           ],
         )),
       ),

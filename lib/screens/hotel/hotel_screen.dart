@@ -7,6 +7,7 @@ import 'package:tpbooking/screens/hotel/hotel_comment_controller.dart';
 import 'package:tpbooking/screens/login/login_controller.dart';
 import 'package:tpbooking/screens/room/room_screen.dart';
 import 'package:get/get.dart';
+import 'package:tpbooking/utils/utils.dart';
 
 class HotelDetail extends StatelessWidget {
   final Hotel hotel;
@@ -20,6 +21,23 @@ class HotelDetail extends StatelessWidget {
         Get.put(HotelCommentController(hotel.id), tag: hotel.id);
     LoginController loginController = Get.find();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "THÔNG TIN KHÁCH SẠN",
+          style: TextStyle(color: Color(0xFF18b57e)),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF18b57e),
+            )),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Obx(
@@ -182,7 +200,7 @@ class Room extends StatelessWidget {
                           Text("${room.children} trẻ nhỏ")
                         ],
                       ),
-                      Text(room.cost.toString())
+                      Text(MoneyFormat.convertDoubleToString(room.cost * 1.0), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.redAccent),)
                     ],
                   )
                 ],

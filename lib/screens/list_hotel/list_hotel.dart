@@ -26,6 +26,23 @@ class _ListHotelScreenState extends State<ListHotelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "TÌM KIẾM",
+          style: TextStyle(color: Color(0xFF18b57e)),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF18b57e),
+            )),
+      ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(8),

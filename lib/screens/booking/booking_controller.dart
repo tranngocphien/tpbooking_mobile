@@ -14,7 +14,7 @@ class BookingController extends GetxController {
   }
 
   Future<void> bookRoom(String idRoom, int userId) async{
-    _hotelService.bookRoom(idRoom, userId, startDate.toString(), endDate.toString());
+    await _hotelService.bookRoom(idRoom, userId, startDate.toString(), endDate.toString());
     HistoryBookingController historyBookingController = Get.find();
     await historyBookingController.getListBooking();
 

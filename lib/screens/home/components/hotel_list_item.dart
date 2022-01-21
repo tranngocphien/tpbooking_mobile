@@ -37,7 +37,7 @@ class HotelItem extends StatelessWidget {
                     image: DecorationImage(
                         fit: BoxFit.cover, image: NetworkImage(imageUrl)),
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.yellow),
+                    color: Colors.grey),
                 height: 200,
               ),
               SizedBox(
